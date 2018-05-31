@@ -1,6 +1,5 @@
 package fr.fchantrel.blockchain.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,9 +27,12 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping(value = "${webservice.root.path}/")
 public class BlockChainRestController {
 
-	@Autowired
-	BlockChainService blockChainService;
+	private final BlockChainService blockChainService;
 
+    public BlockChainRestController(BlockChainService blockChainService) {
+        this.blockChainService = blockChainService;
+    }
+	
 	@ApiOperation(value = "get the blockchain", response = BlockChainDTO.class, tags = "BlockChain")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "BlockChain found", response = BlockChainDTO.class),
 			@ApiResponse(code = 400, message = "Request rejected", response = Error.class) })
